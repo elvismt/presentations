@@ -1,48 +1,99 @@
+/*
+ * Copyright (C) 2017  Elvis M. Teixeira
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #include <Python.h>
 
-/***************************
- * Functions
- ***************************/
+/*==----------------------------------------------------------==
+ Functions
+==----------------------------------------------------------==*/
 static PyObject *
 mymod_system(PyObject *self, PyObject *args)
 {
-    const char *command;
-    int sts;
+    const char *command = NULL;
+    int result = 0;
 
-    if (!PyArg_ParseTuple(args, "s", &command))
+    if (PyArg_ParseTuple (args, "s", &command) == 0) {
+        PyErr_SetString(
+            PyExc_TypeError,
+            "Expected a single string argument");
         return NULL;
+    }
     
-    sts = system(command);
     
-    return PyLong_FromLong(sts);
+    if ((result = system (command)) == -1) {
+        PyErr_SetString(
+            PyExc_ChildProcessError,
+            "Could not execute external command");
+        return NULL;
+    }
+    
+    return PyLong_FromLong (result);
 }
 
 
-/***************************
- * Method table
- ***************************/
+/*==----------------------------------------------------------==
+ Method table
+==----------------------------------------------------------==*/
 static PyMethodDef mymod_methods[] = {
-    {"system",  mymod_system, METH_VARARGS, "Execute a shell command."},
-    {NULL, NULL, 0, NULL}        /* sentinel */
+    {
+        /* method name*/
+        "system",
+        
+        /* function pointer */
+        mymod_system,
+        
+        /* Calling convention */
+        METH_VARARGS,
+        
+        /* Docstring */
+        "Execute a shell command"
+    },
+    
+    /* sentinel that marks the end of the array */
+    {NULL, NULL, 0, NULL}
 };
 
 
-/***************************
- * Module exported symbols
- ***************************/
+/*==----------------------------------------------------------==
+ Module exported symbols
+==----------------------------------------------------------==*/
 static struct PyModuleDef mymod_module = {
+    /* a misterious header */
     PyModuleDef_HEAD_INIT,
-    "mymod",   /* name of module */
-    NULL,      /* module documentation */
-    -1,        /* size of per-interpreter state of the module,
-                  or -1 if the module keeps state in global variables. */
-    mymod_methods
+    
+    /* name of module */
+    "mymod",
+    
+    /* module doc string */
+    "Demo module for native extensions",
+    
+    /* size of per-interpreter state of the module,
+       or -1 if the module keeps state in
+       global variables. */
+    -1,
+    
+    /* array of pointers to the functions that will
+       become the module's methods */
+    mymod_methods   
 };
 
 
-/***************************
- * Module creation function
- ***************************/
+/*==----------------------------------------------------------==
+ Module creation function
+==----------------------------------------------------------==*/
 PyMODINIT_FUNC
 PyInit_mymod(void)
 {
