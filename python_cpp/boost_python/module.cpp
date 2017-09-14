@@ -15,7 +15,17 @@
  */
 
 #include "library.h"
+#include <boost/python.hpp>
 
-char const* hello () {
-    return "Hello world";
+BOOST_PYTHON_MODULE(hello) {
+    using namespace mylib;
+    using namespace boost::python;
+
+    // export simple function
+    def("hello", hello);
+
+    // export class
+    class_<World>("World")
+        .def("get_message", &World::get_message)
+        .def("set_message", &World::set_message);
 }

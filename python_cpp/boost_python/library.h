@@ -14,17 +14,34 @@
  * limitations under the License.
  */
 
-#include "library.h"
-#include <boost/python.hpp>
+#pragma once
+#include <string>
 
-BOOST_PYTHON_MODULE(hello) {
-    using namespace boost::python;
-    
-    // export simple function
-    def("hello", hello);
-    
-    // export class
-    class_<World>("World")
-        .def("get_message", &World::get_message)
-        .def("set_message", &World::set_message);
+namespace mylib {
+
+///
+/// @brief Says a greeting
+///
+char const* say_hello ();
+
+///
+/// @brief Carries a message
+///
+class Messenger {
+public:
+
+    ///
+    /// @brief Sets the message to be delivered
+    ///
+    void set_message(std::string msg) { this->msg = msg; }
+
+    ///
+    /// @brief Retrieves the current message
+    ///
+    std::string get_message() const { return this->msg; }
+
+
+private:
+    std::string msg = "No message";
+};
 }

@@ -14,19 +14,11 @@
  * limitations under the License.
  */
 
-#pragma once
-#include <string>
+#include "library.h"
 
-char const* hello ();
+namespace mylib {
 
-class World {
-public:
-    
-    void set_message(std::string msg) { this->msg = msg; }
-    
-    std::string get_message() const { return this->msg; }
-    
-    
-private:
-    std::string msg = "No message";
-};
+char const* say_hello () {
+    return "Hello World!";
+}
+}
