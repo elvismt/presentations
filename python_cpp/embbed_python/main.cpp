@@ -56,8 +56,8 @@ int main(int argc, char *argv[]) {
     //
     std::ifstream file_stream(argv[1]);
     std::string script_source;
-    script_source.assign((std::istreambuf_iterator<char>(file_stream)),
-                          std::istreambuf_iterator<char>());
+    script_source.assign(std::istreambuf_iterator<char>{file_stream},
+                          std::istreambuf_iterator<char>{});
     
     //
     // !!!Here is the meat!!! execute the script

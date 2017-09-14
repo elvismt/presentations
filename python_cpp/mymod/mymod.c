@@ -65,30 +65,18 @@ mymod_system(PyObject *self, PyObject *args)
  Method table
 ==----------------------------------------------------------==*/
 static PyMethodDef mymod_methods[] = {
+    /* Members:
+     *   - name of the method
+     *   - pointer to the function
+     *   - calling convention
+     *   - docstring
+     */
     {
-        /* method name*/
-        "say_hello",
-        
-        /* function pointer */
-        mymod_say_hello,
-        
-        /* Calling convention */
-        METH_VARARGS,
-        
-        /* Docstring */
+        "say_hello", mymod_say_hello, METH_VARARGS,
         "Says a greeting to the user"
     },
     {
-        /* method name*/
-        "system",
-        
-        /* function pointer */
-        mymod_system,
-        
-        /* Calling convention */
-        METH_VARARGS,
-        
-        /* Docstring */
+        "system", mymod_system, METH_VARARGS,
         "Execute a shell command"
     },
     
