@@ -22,10 +22,11 @@ BOOST_PYTHON_MODULE(hello) {
     using namespace boost::python;
 
     // export simple function
-    def("hello", hello);
+    def("say_hello", say_hello);
 
     // export class
-    class_<World>("World")
-        .def("get_message", &World::get_message)
-        .def("set_message", &World::set_message);
+    class_<Messenger>("World")
+        .def("get_message", &Messenger::get_message)
+        .def("set_message", &Messenger::set_message);
 }
+

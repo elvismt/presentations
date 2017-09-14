@@ -20,6 +20,23 @@
  Functions
 ==----------------------------------------------------------==*/
 static PyObject *
+mymod_say_hello(PyObject *self, PyObject *args)
+{
+    const char *hello = "Hello World!";
+    PyObject *result = NULL;
+
+    if ((result = PyUnicode_FromString(hello)) == NULL) {
+        PyErr_SetString (
+            PyExc_TypeError,
+            "Could not build greeting string");
+        return NULL;
+    }
+
+    return result;
+}
+
+
+static PyObject *
 mymod_system(PyObject *self, PyObject *args)
 {
     const char *command = NULL;
@@ -48,6 +65,19 @@ mymod_system(PyObject *self, PyObject *args)
  Method table
 ==----------------------------------------------------------==*/
 static PyMethodDef mymod_methods[] = {
+    {
+        /* method name*/
+        "say_hello",
+        
+        /* function pointer */
+        mymod_say_hello,
+        
+        /* Calling convention */
+        METH_VARARGS,
+        
+        /* Docstring */
+        "Says a greeting to the user"
+    },
     {
         /* method name*/
         "system",
