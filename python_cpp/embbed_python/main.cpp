@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
     // Don't forget to dispose all variables at the end
     //
     Py_XDECREF(main_module);
-    Py_XDECREF(main_module_dict);    
+    Py_XDECREF(main_module_dict);
     Py_XDECREF(pylist);
     Py_XDECREF(pytwo);
     Py_XDECREF(pythree);
@@ -87,3 +87,4 @@ int main(int argc, char *argv[]) {
     Py_Finalize();
     return 0;
 }
+

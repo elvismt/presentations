@@ -25,7 +25,7 @@ mymod_system(PyObject *self, PyObject *args)
     const char *command = NULL;
     int result = 0;
 
-    if (PyArg_ParseTuple (args, "s", &command) == 0) {
+    if (PyArg_ParseTuple(args, "s", &command) == 0) {
         PyErr_SetString(
             PyExc_TypeError,
             "Expected a single string argument");
@@ -33,14 +33,14 @@ mymod_system(PyObject *self, PyObject *args)
     }
     
     
-    if ((result = system (command)) == -1) {
+    if ((result = system(command)) == -1) {
         PyErr_SetString(
             PyExc_ChildProcessError,
             "Could not execute external command");
         return NULL;
     }
     
-    return PyLong_FromLong (result);
+    return PyLong_FromLong(result);
 }
 
 
@@ -93,3 +93,4 @@ PyInit_mymod(void)
 {
     return PyModule_Create(&mymod_module);
 }
+

@@ -25,7 +25,7 @@ BOOST_PYTHON_MODULE(hello) {
     def("say_hello", say_hello);
 
     // export class
-    class_<Messenger>("World")
+    class_<Messenger>("Messenger")
         .def("get_message", &Messenger::get_message)
         .def("set_message", &Messenger::set_message);
 }
