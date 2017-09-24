@@ -24,6 +24,11 @@ setup(
         Extension(
             'mymod',
             sources = ['mymod.c']
+        ),
+        Extension(
+            'shoddy',
+            sources = ['shoddy.c']
         )
     ]
 )
+
