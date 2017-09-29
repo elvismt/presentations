@@ -15,10 +15,12 @@
  */
 
 #include "library.h"
+#include <string>
 
 namespace mylib {
 
-char const* say_hello () {
-    return "Hello World!";
+std::string say_hello (const std::string &who) {
+    return std::string("Hello, ") + who + "!";
 }
 }
+

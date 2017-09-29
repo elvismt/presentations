@@ -22,7 +22,7 @@ namespace mylib {
 ///
 /// @brief Says a greeting
 ///
-char const* say_hello ();
+std::string say_hello (const std::string &who);
 
 ///
 /// @brief Carries a message
